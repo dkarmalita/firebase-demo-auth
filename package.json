@@ -1,0 +1,27 @@
+{
+  "name": "firebase-demo-auth",
+  "version": "0.0.1",
+  "description": "Firebase Auth API demo, web application",
+  "main": "index.html",
+  "scripts": {
+   "prestart": "npm update",
+    "start": "live-server ./src/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dkarmalita/firebase-demo-auth.git"
+  },
+  "keywords": [
+    "Firebase",
+    "Auth",
+    "demo",
+    "web",
+    "app"
+  ],
+  "author": "Dmitriy Karmalita <dmitriy.karmalita@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.0.0"
+  }
+}

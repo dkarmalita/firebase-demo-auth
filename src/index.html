@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <title>My Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon" sizes="16x16">
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+
+    <!-- AngularFire 
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+    -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style>
+        .list-item {
+            padding: 10px 0;
+            border: 1px solid #ccc;
+        }
+        .bordered, .outlined {
+            padding: 10px;
+            margin: 0 0 10px 0;
+            border: 1px solid grey;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div ng-controller="AuthCtrl" class="container" ng-app="AuthApp">
+
+    <h2>{{ headline }}</h2>
+    <!--h4>See real time binding by opening two browsers and adding, updating, or removing a TODO</h4-->
+
+
+    <div class="bordered">
+        <h4 style="text-align: center">Login Status</h4>
+
+        <!-- LOGIN STATUS MESSAGE -->
+        <div class="form-group">
+            <div class={{login.style}}>
+              <strong>Login Status: </strong> {{ login.msg }}
+            </div>
+        </div>
+
+        <!-- LOGOUT BUTTON -->
+        <button class="btn btn-warning btn-block" ng-disabled="!login.status" ng-click="logout()">
+            <i class="glyphicon glyphicon-remove"></i>  Logout</button>
+    </div>
+
+    <div class="bordered">
+    <!-- FORM ============ -->
+  
+        <!--form name="userForm" ng-submit="submitForm()" novalidate-->
+        <form name="userForm" novalidate>
+
+            <h4 style="text-align: center">Email/Password Account</h4>
+
+            <!-- EMAIL -->
+            <div class="form-group row form-horizontal" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                <label class="control-label col-sm-2" for="email">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" name="email" class="form-control" ng-model="user.email" required>
+                    <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">A valid email is required.</p>
+                </div>
+            </div>
+            
+            <!-- PASSWORD -->
+            <div class="form-group  row form-horizontal" ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine }">
+                <label class="control-label col-sm-2" for="password">Password</label>
+                <div class="col-sm-10">
+                    <input type="text" name="password" class="form-control" ng-model="user.password" ng-minlength="6" ng-maxlength="8" required>
+                    <p ng-show="userForm.password.$error.minlength" class="help-block">Password is too short.</p>
+                    <p ng-show="userForm.password.$error.maxlength" class="help-block">Password is too long.</p>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block" ng-disabled="userForm.$invalid" ng-click="loginWithEmail(user.email,user.password)">Login with Email</button>
+            <button type="submit" class="btn btn-primary btn-block" ng-disabled="userForm.$invalid" ng-click="createEmailUser(user.email,user.password)"><i class="glyphicon glyphicon-plus"></i> Create User</button>
+            
+        </form>
+    </div>
+
+    <div class="bordered">
+        <h4 style="text-align: center">Anonymous Account</h4>
+        <button type="submit" class="btn btn-primary btn-block" ng-click="loginAnonymously()">Login Anonymously</button>
+        <button type="submit" class="btn btn-primary btn-block" ng-disabled="true">Convert to Email/Password account</button>
+    </div>
+
+    <div class="bordered">
+        <h4 style="text-align: center">Provider's Accounts</h4>
+        <button type="submit" class="btn btn-primary btn-block" ng-click="loginWithGoogle()">Login with Google</button>
+        <h5 style="text-align:center;font-style:italic;">Ficebook, Twitter and GitHub authentication is also avaliable.</h5>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="./scripts/app.js"></script>
+</div>
+</body>
+</html>
